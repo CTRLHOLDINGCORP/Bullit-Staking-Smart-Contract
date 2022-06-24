@@ -17,10 +17,13 @@ async function main() {
   var stakingDeadlineDate = 1688947200; // 10/07/2023 00:00:00
   var vestingDuration = 60 * 60 * 24 * 30;
   var availableRewardsEachPeriod = 3125000 * 10 ** 16;
+  var tokenAddress = '0xb97c24d014cabdb8744f198a16918497Effc36E5';
+  var BULT_TFUEL_LP = "0x503D52c7c484aeb09fE23Eaf9A4a428c00203efC";
 
   // We get the contract to deploy
   const LpStaking = await hre.ethers.getContractFactory("LpStaking");
-  const lpStaking = await LpStaking.deploy(stakingStartDate, stakingDeadlineDate, vestingDuration, availableRewardsEachPeriod);
+  const lpStaking = await LpStaking.deploy(stakingStartDate, stakingDeadlineDate, vestingDuration, availableRewardsEachPeriod,
+    tokenAddress, BULT_TFUEL_LP);
 
   await lpStaking.deployed();
 

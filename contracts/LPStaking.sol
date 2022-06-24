@@ -41,11 +41,13 @@ contract LPStaking is Ownable, IStakingLP {
         uint256 _stakingStartDate,
         uint256 _stakingDeadlineDate,
         uint256 _vestingDuration,
-        uint256 _availableRewardsEachPeriod
+        uint256 _availableRewardsEachPeriod,
+        address _token,
+        address _BULT_TFUEL_LP
     ) {
 
-        BULT_TFUEL_LP = IUniswapV2Pair(0xd8B948C1B91EEd51F5852e3Fe67a9d3974aE5Ad6);
-        token = ITNT20(0xe32D2e3313cCc293F46d35564ca9D02b6C906A52);
+        BULT_TFUEL_LP = IUniswapV2Pair(_BULT_TFUEL_LP);
+        token = ITNT20(_token);
 
         stakingStartDate = _stakingStartDate;
         stakingDeadlineDate = _stakingDeadlineDate;
