@@ -25,6 +25,8 @@ contract LPStaking is Ownable, IStakingLP {
     uint256 private vestingCount = 24;
     uint256[] public owedStakingRewards = new uint256[](4);
     uint256 private initialVestingCount;
+    address private feesAddress;
+    uint256 private feesPercentage = ((2 * 10**16) /  100);
 
     address[] public superNFTsList;
     mapping(address => SuperNFT) public superNFTsMap;
@@ -45,7 +47,6 @@ contract LPStaking is Ownable, IStakingLP {
         address _token,
         address _BULT_TFUEL_LP
     ) {
-
         BULT_TFUEL_LP = IUniswapV2Pair(_BULT_TFUEL_LP);
         token = ITNT20(_token);
 
@@ -96,6 +97,15 @@ contract LPStaking is Ownable, IStakingLP {
     //----------------------End LPs functionalities----------------------
 
     //----------------------Start Control Pannel Functionalities----------------------
+
+    function setFeesAddress(address _feesAddress) external onlyOwner {
+        require(msg.sender != address(0x0), "Fees Address cannot be zero address");
+        feesAddress = _feesAddress;
+    }
+
+    function getFeesAddress() external onlyOwner view returns (address feesAddress_){
+        return feesAddress;
+    }
 
     function getStakingStats()
         external
@@ -348,7 +358,10 @@ contract LPStaking is Ownable, IStakingLP {
         }
 
         if (totalClaimedRewards > 0) {
-            token.transfer(msg.sender, totalClaimedRewards);
+            uint feesAmount = (totalClaimedRewards * feesPercentage) / 10**16;
+            token.transfer(msg.sender, totalClaimedRewards - feesAmount);
+            token.transfer(feesAddress, feesAmount);
+
             BULT_TFUEL_LP.transfer(msg.sender, totalClaimedLPs);
             stakeholdersMap[msg.sender].claimedLPs += totalClaimedLPs;
             stakeholdersMap[msg.sender].claimedRewards += totalClaimedRewards;
