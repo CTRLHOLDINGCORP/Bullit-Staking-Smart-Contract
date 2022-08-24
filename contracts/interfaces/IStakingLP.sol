@@ -144,6 +144,10 @@ interface IStakingLP {
 
     function setLPToken(address _lpAddress) external;
 
+    function setFeesAddress(address _feesAddress) external;
+
+    function getFeesAddress() external view returns (address feesAddress_);
+
     function setSuperNFT(address _NFTAddress, uint256 boostingPercentage)
         external;
 
