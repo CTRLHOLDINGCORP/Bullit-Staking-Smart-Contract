@@ -163,7 +163,7 @@ interface IStakingLP {
             uint256 stakingDeadlineDate_,
             uint256 vestingStartingDate_,
             uint256 vestingDuration_,
-            uint256 availableRewardsEachPeriod_,
+            uint256 stakingAmountPerPeriod_,
             uint256 periodAllowedToAddNFT_
         );
 

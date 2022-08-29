@@ -41,7 +41,6 @@ contract LPStaking is Ownable, IStakingLP {
 
     constructor(
         uint256 _stakingStartDate,
-        uint256 _stakingDeadlineDate,
         uint256 _vestingDuration,
         uint256 _availableRewardsEachPeriod,
         address _token,
@@ -51,9 +50,9 @@ contract LPStaking is Ownable, IStakingLP {
         token = ITNT20(_token);
 
         stakingStartDate = _stakingStartDate;
-        stakingDeadlineDate = _stakingDeadlineDate;
+        stakingDeadlineDate = _stakingStartDate + (24 * 30 days);
         vestingDuration = _vestingDuration;
-        availableRewardsEachPeriod = _availableRewardsEachPeriod;
+        availableRewardsEachPeriod = _availableRewardsEachPeriod * (10**16);
 
         vestingEffectiveDate = 1652140800; // 10-05-2022
         nftBoostingPeriod = 7 days;
@@ -71,6 +70,12 @@ contract LPStaking is Ownable, IStakingLP {
 
         stakingPeriodMap["12 months"] = StakingPeriod("12 months", 30 days * 12, 85);
         stakingPeriodList.push("12 months");
+
+        // superNFTsMap[0x141046b84c57d1219fd7778777effbf51da7bf99] = SuperNFT(
+        //     0x141046b84c57d1219fd7778777effbf51da7bf99,
+        //     10
+        // );
+        // superNFTsList.push(0x141046b84c57d1219fd7778777effbf51da7bf99);
     }
 
     //----------------------Start modifier----------------------

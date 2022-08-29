@@ -40,6 +40,11 @@ module.exports = {
       chainId: 361,
       gasPrice: 4000000000000
     },
+    bsc_testnet: {
+      url: "https://data-seed-prebsc-2-s1.binance.org:8545",
+      accounts: [process.env.THETA_TESTNET_WALLET_PRIVATE_KEY],
+      chainId: 97
+    },
   },
   solidity: {
     version: "0.8.14",
